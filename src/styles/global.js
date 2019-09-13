@@ -39,5 +39,7 @@ export default createGlobalStyle`
 
   button {
     cursor: pointer;
+    color: #fff;
+    font-weight: bold;
   }
 `;
