@@ -32,6 +32,15 @@ export const Content = styled.div`
         color: rgba(255, 255, 255, 0.5);
       }
     }
+
+    span {
+      color: #f94d6a;
+      align-self: center;
+      border-top: 1px dashed ${darken(0.4, '#f94d6a')};
+
+      padding: 10px;
+    }
+
     button {
       background: #f94d6a;
       height: 50px;
