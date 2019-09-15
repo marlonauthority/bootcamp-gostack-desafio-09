@@ -46,7 +46,12 @@ export default function Dashboard() {
         {meetups.length ? (
           meetups.map(meetup => (
             <Meetup key={meetup.id} past={meetup.past}>
-              <Link to="#">
+              <Link
+                to={{
+                  pathname: '/details',
+                  meetup,
+                }}
+              >
                 <strong>{meetup.title}</strong>
                 <div>
                   <span>24 de Junho, às 20h</span>
