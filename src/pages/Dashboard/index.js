@@ -1,8 +1,72 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { format, parseISO } from 'date-fns';
+import { Link } from 'react-router-dom';
+
+import { MdAddCircleOutline, MdChevronRight } from 'react-icons/md';
+
 import api from '~/services/api';
-// import { Container } from './styles';
+
+import { Container, Meetup } from './styles';
 
 export default function Dashboard() {
-  api.get('/meetups?date=2019-09-14');
-  return <h1>Dashboard</h1>;
+  const [meetups, setMeetups] = useState([]);
+
+  useEffect(() => {
+    async function loadMeetups() {
+      const response = await api.get('/meetups');
+
+      const data = response.data.map(meetup => {
+        return {
+          ...meetup,
+          formattedDate: format(
+            parseISO(meetup.date_hour),
+            'EEE, MMM d, h:mm a'
+          ),
+        };
+      });
+      setMeetups(data);
+    }
+    loadMeetups();
+  }, []);
+
+  function handleCreateNewMeetup() {
+    //
+  }
+
+  return (
+    <Container>
+      <header>
+        <h2>Meus meetups</h2>
+        <button type="button" onClick={handleCreateNewMeetup}>
+          <MdAddCircleOutline size={20} color="#fff" /> Novo meetup
+        </button>
+      </header>
+
+      <ul>
+        {meetups.length ? (
+          meetups.map(meetup => (
+            <Meetup key={meetup.id} past={meetup.past}>
+              <Link to="#">
+                <strong>{meetup.title}</strong>
+                <div>
+                  <span>24 de Junho, às 20h</span>
+                  <MdChevronRight size={24} color="#fff" />
+                </div>
+              </Link>
+            </Meetup>
+          ))
+        ) : (
+          <Meetup>
+            <Link to="/dashboard">
+              <strong>Não existem Meetups</strong>
+              <div>
+                <span></span>
+                <MdChevronRight size={24} color="#fff" />
+              </div>
+            </Link>
+          </Meetup>
+        )}
+      </ul>
+    </Container>
+  );
 }
