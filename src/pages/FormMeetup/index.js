@@ -13,7 +13,10 @@ import BannerInput from './components/BannerInput';
 import { MdAddCircleOutline } from 'react-icons/md';
 import { Container, Content } from './styles';
 
-import { createMeetupRequest } from '~/store/modules/meetup/actions';
+import {
+  createMeetupRequest,
+  editMeetupRequest,
+} from '~/store/modules/meetup/actions';
 
 const schema = Yup.object().shape({
   banner_id: Yup.number().required(() => toast.error('Imagem obrigatória!')),
@@ -23,16 +26,26 @@ const schema = Yup.object().shape({
   location: Yup.string().required('Localização obrigatório'),
 });
 
-export default function FormMeetup() {
+export default function FormMeetup({ location }) {
+  const { parsedMeetup } = location;
   const dispatch = useDispatch();
 
   async function handleSubmit(data) {
-    dispatch(createMeetupRequest(data));
+    if (parsedMeetup) {
+      const dataId = parsedMeetup.id;
+      dispatch(editMeetupRequest(data, dataId));
+    } else {
+      dispatch(createMeetupRequest(data));
+    }
   }
   return (
     <Container>
       <Content>
-        <Form schema={schema} onSubmit={handleSubmit}>
+        <Form
+          schema={schema}
+          initialData={parsedMeetup || null}
+          onSubmit={handleSubmit}
+        >
           <BannerInput name="banner_id" />
 
           <Input name="title" placeholder="Título do Meetup" />

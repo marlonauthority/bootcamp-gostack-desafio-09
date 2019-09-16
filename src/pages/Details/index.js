@@ -1,5 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import { parseISO } from 'date-fns';
+
+import history from '~/services/history';
 
 import { MdDeleteForever, MdEdit, MdEvent, MdPlace } from 'react-icons/md';
 
@@ -20,12 +23,29 @@ export default function Details({ location }) {
     return <Redirect to="/dashboard" />;
   }
 
+  function handleEdit(meetup) {
+    const { id, date_hour, title, description, formattedDate } = meetup;
+    const parsedMeetup = {
+      id,
+      date_hour: parseISO(date_hour),
+      title,
+      description,
+      location: meetup.location,
+      banner: meetup.banner,
+      formattedDate,
+    };
+    history.push({
+      pathname: '/meetupsForm',
+      parsedMeetup,
+    });
+  }
+
   return (
     <Container>
       <header>
         <h2>{meetup.title}</h2>
         <div>
-          <ButtonEdit type="button">
+          <ButtonEdit type="button" onClick={() => handleEdit(meetup)}>
             <MdEdit size={22} color="#fff" /> Editar
           </ButtonEdit>
           <ButtonCancel type="button">

@@ -12,8 +12,22 @@ export function createMeetupSuccess(meetup) {
   };
 }
 
-export function createMeetupFailure() {
+export function meetupFailure() {
   return {
-    type: '@meetup/CREATE_MEETUP_FAILURE',
+    type: '@meetup/MEETUP_FAILURE',
+  };
+}
+
+export function editMeetupRequest(data, id) {
+  return {
+    type: '@meetup/EDIT_MEETUP_REQUEST',
+    payload: { data },
+    id,
+  };
+}
+
+export function editMeetupSuccess() {
+  return {
+    type: '@meetup/EDIT_MEETUP_SUCCESS',
   };
 }

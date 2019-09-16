@@ -37,7 +37,7 @@ export default function Dashboard() {
   }, []);
 
   function handleCreateNewMeetup() {
-    history.push('/meetups/create');
+    history.push('/meetupsForm');
   }
 
   return (
