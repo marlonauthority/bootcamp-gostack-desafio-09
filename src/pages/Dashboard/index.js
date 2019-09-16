@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { MdAddCircleOutline, MdChevronRight } from 'react-icons/md';
 
 import api from '~/services/api';
+import history from '~/services/history';
 
 import { Container, Meetup } from './styles';
 
@@ -36,7 +37,7 @@ export default function Dashboard() {
   }, []);
 
   function handleCreateNewMeetup() {
-    //
+    history.push('/meetups/create')
   }
 
   return (
