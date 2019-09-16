@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
+
 import { format, parseISO } from 'date-fns';
+import pt from 'date-fns/locale/pt-BR';
+
 import { Link } from 'react-router-dom';
 
 import { MdAddCircleOutline, MdChevronRight } from 'react-icons/md';
@@ -20,7 +23,10 @@ export default function Dashboard() {
           ...meetup,
           formattedDate: format(
             parseISO(meetup.date_hour),
-            'EEE, MMM d, h:mm a'
+            "dd 'de' MMMM', às ' HH:mm'",
+            {
+              locale: pt,
+            }
           ),
         };
       });
