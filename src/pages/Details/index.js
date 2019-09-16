@@ -1,8 +1,11 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { parseISO } from 'date-fns';
 
 import history from '~/services/history';
+
+import { deleteMeetupRequest } from '~/store/modules/meetup/actions';
 
 import { MdDeleteForever, MdEdit, MdEvent, MdPlace } from 'react-icons/md';
 
@@ -16,8 +19,9 @@ import {
 } from './styles';
 
 export default function Details({ location }) {
+  const dispatch = useDispatch();
+
   const { meetup } = location;
-  console.tron.log(meetup);
 
   if (!meetup) {
     return <Redirect to="/dashboard" />;
@@ -40,6 +44,10 @@ export default function Details({ location }) {
     });
   }
 
+  function handleDelete(id) {
+    dispatch(deleteMeetupRequest(id));
+  }
+
   return (
     <Container>
       <header>
@@ -48,7 +56,7 @@ export default function Details({ location }) {
           <ButtonEdit type="button" onClick={() => handleEdit(meetup)}>
             <MdEdit size={22} color="#fff" /> Editar
           </ButtonEdit>
-          <ButtonCancel type="button">
+          <ButtonCancel type="button" onClick={() => handleDelete(meetup.id)}>
             <MdDeleteForever size={22} color="#fff" /> Cancelar
           </ButtonCancel>
         </div>
