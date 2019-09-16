@@ -37,7 +37,7 @@ export default function Dashboard() {
   }, []);
 
   function handleCreateNewMeetup() {
-    history.push('/meetups/create')
+    history.push('/meetups/create');
   }
 
   return (
@@ -61,7 +61,7 @@ export default function Dashboard() {
               >
                 <strong>{meetup.title}</strong>
                 <div>
-                  <span>24 de Junho, às 20h</span>
+                  <span>{meetup.formattedDate}</span>
                   <MdChevronRight size={24} color="#fff" />
                 </div>
               </Link>
