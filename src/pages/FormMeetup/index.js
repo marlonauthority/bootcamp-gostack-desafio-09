@@ -1,9 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
-
-import api from '~/services/api';
 
 import { toast } from 'react-toastify';
 
@@ -68,3 +67,6 @@ export default function FormMeetup({ location }) {
     </Container>
   );
 }
+FormMeetup.propTypes = {
+  location: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired,
+};

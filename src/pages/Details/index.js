@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { parseISO } from 'date-fns';
@@ -76,3 +77,6 @@ export default function Details({ location }) {
     </Container>
   );
 }
+Details.propTypes = {
+  location: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired,
+};
