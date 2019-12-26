@@ -9,6 +9,8 @@ import Logo from '~/assets/logo.svg';
 
 import { signUpRequest } from '~/store/modules/auth/actions';
 
+import Loading from '~/components/Loading';
+
 const schema = Yup.object().shape({
   name: Yup.string().required('Nome obrigatório'),
   email: Yup.string()
@@ -39,7 +41,7 @@ export default function SignUp() {
           placeholder="Sua senha secreta"
         />
         <button type="submit">
-          {loading === true ? 'Carregando..' : 'Criar Conta'}
+          {loading === true ? <Loading /> : 'Criar Conta'}
         </button>
       </Form>
       <Link to="/">Já tenho login</Link>

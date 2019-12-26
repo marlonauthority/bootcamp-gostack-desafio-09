@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -19,8 +19,11 @@ import {
   Place,
 } from './styles';
 
+import Loading from '~/components/Loading';
+
 export default function Details({ location }) {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   const { meetup } = location;
 
@@ -29,10 +32,11 @@ export default function Details({ location }) {
   }
 
   function handleEdit(meetup) {
-    const { id, date_hour, title, description, formattedDate } = meetup;
+    setLoading(true);
+    const { id, date, title, description, formattedDate } = meetup;
     const parsedMeetup = {
       id,
-      date_hour: parseISO(date_hour),
+      date: parseISO(date),
       title,
       description,
       location: meetup.location,
@@ -46,6 +50,7 @@ export default function Details({ location }) {
   }
 
   function handleDelete(id) {
+    setLoading(true);
     dispatch(deleteMeetupRequest(id));
   }
 
@@ -55,10 +60,11 @@ export default function Details({ location }) {
         <h2>{meetup.title}</h2>
         <div>
           <ButtonEdit type="button" onClick={() => handleEdit(meetup)}>
-            <MdEdit size={22} color="#fff" /> Editar
+            <MdEdit size={22} color="#fff" /> {loading ? <Loading /> : 'Editar'}
           </ButtonEdit>
           <ButtonCancel type="button" onClick={() => handleDelete(meetup.id)}>
-            <MdDeleteForever size={22} color="#fff" /> Cancelar
+            <MdDeleteForever size={22} color="#fff" />{' '}
+            {loading ? <Loading /> : 'Cancelar'}
           </ButtonCancel>
         </div>
       </header>

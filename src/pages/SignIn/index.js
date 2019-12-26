@@ -10,6 +10,8 @@ import { signInRequest } from '~/store/modules/auth/actions';
 
 import Logo from '~/assets/logo.svg';
 
+import Loading from '~/components/Loading';
+
 const schema = Yup.object().shape({
   email: Yup.string()
     .email('E-mail inválido')
@@ -37,7 +39,7 @@ export default function SignIn() {
           placeholder="Sua senha secreta"
         />
         <button type="submit">
-          {loading === true ? 'Carregando..' : 'Entrar'}
+          {loading === true ? <Loading /> : 'Entrar'}
         </button>
       </Form>
       <Link to="/register">Criar conta grátis</Link>

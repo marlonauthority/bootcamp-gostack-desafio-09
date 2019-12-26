@@ -12,9 +12,9 @@ import {
 } from './actions';
 
 export function* createMeetup({ payload }) {
-  try {
-    const { data } = payload;
+  const { data } = payload;
 
+  try {
     const response = yield call(api.post, '/meetups', data);
 
     toast.success('Meetup criado com Sucesso!');
@@ -22,7 +22,9 @@ export function* createMeetup({ payload }) {
     yield put(createMeetupSuccess(response.data));
     history.push('/');
   } catch (err) {
-    toast.error('Erro ao criar Meetup');
+    toast.error(
+      'Erro ao criar Meetup, verifique se todos os campos estão corretos.'
+    );
     yield put(meetupFailure());
   }
 }
